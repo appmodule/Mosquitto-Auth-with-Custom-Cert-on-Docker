@@ -11,7 +11,7 @@ services:
     build: 
       context: ./mosquitto
       args:
-        - auth_backend=mysql
+        - auth_backend=MYSQL
     container_name: mosquitto
     depends_on:
       - mysqldb
