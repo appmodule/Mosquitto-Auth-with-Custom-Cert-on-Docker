@@ -20,3 +20,9 @@ CREATE TABLE acls (
 	PRIMARY KEY (id)
 	);
 CREATE UNIQUE INDEX acls_user_topic ON acls (username, topic(228));
+
+INSERT INTO users (username, pw) VALUES ('test', 'PBKDF2$sha256$901$jNsTQeM810RWf9z9$+5qxPKIMxfy/nuhUUtgUm+tyO/ewCzuy'); -- pass is test123
+INSERT INTO users (username, pw, super)	VALUES ('super', 'PBKDF2$sha256$901$AEz7dV6JGOuqmUe4$n/Jb9oN1WDdzO6TLxHC8eMx4wdPDODkZ', 1); -- pass is super123
+
+INSERT INTO acls (username, topic, rw) VALUES ('test', 'test/#', 2);
+INSERT INTO acls (username, topic, rw) VALUES ('super', '#', 2);

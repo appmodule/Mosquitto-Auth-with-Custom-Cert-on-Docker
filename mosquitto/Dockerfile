@@ -22,7 +22,7 @@ ENV AUTH_DIR ${SRC_DIR}/mosquitto-auth-plug-master
 RUN wget https://github.com/jpmens/mosquitto-auth-plug/archive/master.zip  -P ${SRC_DIR}
 RUN cd ${SRC_DIR} && unzip master.zip
 RUN apk del openssl-dev
-RUN apk add mysql-dev 
+RUN apk add mysql-dev postgresql-dev postgresql-client
 RUN cd ${AUTH_DIR} && cp config.mk.in config.mk
 RUN sed -i "s/BACKEND_${auth_backend} ?= no/BACKEND_${auth_backend} ?= yes/" ${AUTH_DIR}/config.mk
 RUN sed -i "s|MOSQUITTO_SRC =|MOSQUITTO_SRC = ${MOSQ_DIR}|" ${AUTH_DIR}/config.mk
@@ -31,5 +31,6 @@ RUN cd ${AUTH_DIR} && make
 RUN cp ${AUTH_DIR}/auth-plug.so /usr/local/lib/
 
 EXPOSE 8883
-CMD ["/usr/local/bin/mosquitto", "-c", "/etc/mosquitto/mosquitto.conf"]
+COPY auth_backends/${auth_backend}/wait-for-db.sh /usr/local/bin/
+CMD ["/usr/local/bin/wait-for-db.sh", "/usr/local/bin/mosquitto", "-c", "/etc/mosquitto/mosquitto.conf"]
 

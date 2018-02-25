@@ -1,17 +1,19 @@
 version: '3'
 
 services:
-  mysqldb:
+  postgres:
     build: 
-      context: ./mysql
-    container_name: mysqldb
+      context: ./postgres
+    container_name: postgres
     environment:
-      - MYSQL_ROOT_PASSWORD=test123
+      - POSTGRES_PASSWORD=test123
   mosquitto:
     build: 
       context: ./mosquitto
       args:
-        - auth_backend=MYSQL
+        - auth_backend=POSTGRES
     container_name: mosquitto
     depends_on:
-      - mysqldb
+      - postgres
+    ports:
+      - "8883:8883"
