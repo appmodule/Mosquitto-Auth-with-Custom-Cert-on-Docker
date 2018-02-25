@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  mariadb:
+    build: 
+      context: ./mariadb
+    container_name: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=test123
+  mosquitto:
+    build: 
+      context: ./mosquitto
+    container_name: mosquitto
+    depends_on:
+      - mariadb
