@@ -23,8 +23,6 @@ mosquitto_sub -i testId -v  -p 8883 --cafile mosquitto/ca.crt -u test -P test123
 For more users and ACL lists you will need to connect to 
 ```bash
 ubuntu@dev:~/docker$ docker exec -ti postgres bash
-root@e3d946f35859:/# psql -d mosquitto_auth
-psql: FATAL:  database "mosquitto_auth" does not exist
 root@e3d946f35859:/# psql -d mosquitto-auth
 ```
 After that you have insert examples here: https://github.com/appmodule/Mosquitto-Auth-with-Custom-Cert-on-Docker/blob/master/postgres/mosquitto-auth.sql
